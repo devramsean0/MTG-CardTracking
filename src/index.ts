@@ -1,5 +1,7 @@
+#! /usr/bin/env node
 import { defineCommand, runMain } from "citty";
 import { mainCommand } from "./mainCommand";
+import "./lib/db";
 const main = defineCommand({
     meta: {
         name: "mtg-cardtracker",

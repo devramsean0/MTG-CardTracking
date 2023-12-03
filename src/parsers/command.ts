@@ -36,12 +36,12 @@ export class CommandParser {
       }
     });
   }
-  parse(input: string): void {
+  async parse(input: string): Promise<void> {
     const [commandName, ...subcommands] = input.split(' ');
     const command = this.commands.get(commandName);
 
     if (command) {
-      command.execute(subcommands);
+      await command.execute(subcommands);
     } else {
       console.log(`Unknown command: ${commandName}`);
     }
@@ -53,11 +53,11 @@ export class CommandParser {
       prompt: prompt
   });
       rl.prompt();
-      rl.on('line', (line: string) => {
+      rl.on('line', async (line: string) => {
           if (line === 'exit') {
               rl.close();
           }
-          this.parse(line);
+          await this.parse(line);
           rl.prompt();
       });
       rl.on('close', () => {
